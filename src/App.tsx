@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppBar, Toolbar, Typography, Switch, FormControlLabel, CssBaseline, ThemeProvider } from '@mui/material';
+import AdminView from './components/AdminView/container/AdminView';
+import UserView from './components/UserView';
+import { fetchInventory } from './services/api';
+import { RootState } from './redux/store';
+import { setProducts, toggleAdminView } from './redux/inventorySlice';
+import { toggleDarkMode } from './redux/themeSlice';
+import './App.css';
+import { createAppTheme } from './theme';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const dispatch = useDispatch();
+  const isAdmin = useSelector((state: RootState) => state.inventory.isAdmin);
+  const darkMode = useSelector((state: RootState) => state.theme.darkMode);
+
+  const theme = React.useMemo(
+    () => createAppTheme(darkMode),
+    [darkMode],
+  );
+
+  const loadProducts = async () => {
+    const data = await fetchInventory();
+    dispatch(setProducts(data));
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, [dispatch]);
+
+  const handleAdminToggle = () => dispatch(toggleAdminView());
+  const handleDarkModeToggle = () => dispatch(toggleDarkMode());
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <AppBar position="static">
+          <Toolbar sx={{ justifyContent: 'flex-end' }}>
+            {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Inventory Management
+            </Typography> */}
+            <FormControlLabel
+              control={<Switch checked={isAdmin} onChange={handleAdminToggle} />}
+              label={isAdmin ? 'Admin View' : 'User View'}
+            />
+            {/* Disabled for now, add dark mode toggle */}
+            {/* <FormControlLabel
+              control={<Switch checked={darkMode} onChange={handleDarkModeToggle} />}
+              label="Dark Mode"
+            /> */}
+          </Toolbar>
+        </AppBar>
+        {isAdmin ? <AdminView /> : <UserView />}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;

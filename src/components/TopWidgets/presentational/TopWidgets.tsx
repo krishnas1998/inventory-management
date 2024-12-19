@@ -23,7 +23,7 @@ const TopWidgets: React.FC<TopWidgetsProps> = ({ totalProducts, totalStoreValue,
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               {widget.icon}
               <Box sx={{ textAlign: 'left', marginLeft: 2 }}>
-                <Typography variant="h6">{widget.label}</Typography>
+                <Typography variant="subtitle2">{widget.label}</Typography>
                 <Typography variant="h4">{widget.value}</Typography>
               </Box>
             </Box>

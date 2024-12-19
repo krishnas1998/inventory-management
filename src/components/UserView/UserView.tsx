@@ -5,7 +5,7 @@ import ProductTable from '../ProductTable/container/ProductTable';
 
 const UserView: React.FC = () => {
   return (
-    <Container disableGutters sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+    <Container maxWidth={false} disableGutters sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
       <TopWidgets />
       <ProductTable
         isAdmin={false}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppBar, Toolbar, Switch, FormControlLabel, CssBaseline, ThemeProvider } from '@mui/material';
 import Inventory from './components/Inventory/container/Inventory';
 import { RootState } from './redux/store';
-import { toggleAdminView } from './redux/inventorySlice';
+import { toggleAdminView } from './redux/inventory/inventorySlice';
 import './App.css';
 import { createAppTheme } from './theme';
 

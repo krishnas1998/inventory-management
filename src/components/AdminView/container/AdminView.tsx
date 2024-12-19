@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { RootState } from '../../../redux/store';
-import { updateProduct, deleteProduct, toggleProductDisable } from '../../../redux/inventorySlice';
+import { updateProduct, deleteProduct, toggleProductDisable } from '../../../redux/inventory/inventorySlice';
 import AdminViewPresentation from '../presentational/AdminView';
 import { Product } from '../../../types/Product';
 

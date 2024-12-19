@@ -14,7 +14,7 @@ const Inventory: React.FC<InventoryProps> = ({ isAdmin, loadProducts }) => {
     loadProducts();
   }, []);
   return (
-    <Container sx={{ marginTop: 4, textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 1 }}>
+    <Container maxWidth={false} sx={{ marginTop: 4, textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 1 }}>
       <Typography variant="h4" sx={{ mb: 2 }}>Inventory Stats</Typography>
       <div>{isAdmin ? <AdminView /> : <UserView />}</div>
     </Container>

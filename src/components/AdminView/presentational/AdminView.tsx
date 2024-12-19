@@ -34,7 +34,7 @@ const AdminViewPresentation: React.FC<AdminViewProps> = ({
   };
 
   return (
-    <Container disableGutters sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+    <Container maxWidth={false} disableGutters sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
       <TopWidgets />
       <ProductTable
         isAdmin={true}

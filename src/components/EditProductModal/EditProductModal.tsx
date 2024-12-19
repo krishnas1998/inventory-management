@@ -38,7 +38,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({ open, product, onCl
         Edit Product
         {editedProduct.name && (
           <div>
-            <Typography variant="caption">
+            <Typography variant="subtitle2">
               {editedProduct.name}
             </Typography>
           </div>
@@ -52,7 +52,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({ open, product, onCl
             top: 8,
           }}
         >
-          <CloseIcon />
+          <CloseIcon color="primary" />
         </IconButton>
       </DialogTitle>
       <DialogContent>

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Container } from '@mui/material';
-import TopWidgets from '../../TopWidgets';
-import ProductTable from '../../ProductTable';
-import EditProductModal from '../../EditProductModal';
+import TopWidgets from '../../TopWidgets/container/TopWidgets';
+import ProductTable from '../../ProductTable/container/ProductTable';
+import EditProductModal from '../../EditProductModal/EditProductModal';
 import { Product } from '../../../types/Product';
 
 interface AdminViewProps {
   products: Product[];
-  updateProduct: (product: Product) => void;
-  deleteProduct: (id: number) => void;
-  toggleProductDisable: (id: number) => void;
+  updateProduct: (product: Product, index: number) => void;
+  deleteProduct: (index: number) => void;
+  toggleProductDisable: (index: number) => void;
 }
 
 const AdminViewPresentation: React.FC<AdminViewProps> = ({
@@ -18,18 +18,23 @@ const AdminViewPresentation: React.FC<AdminViewProps> = ({
   toggleProductDisable,
 }) => {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editingProductIndex, setEditingProductIndex] = useState<number>(0);
 
-  const handleEdit = (product: Product) => {
+  const handleEdit = (product: Product, index: number) => {
     setEditingProduct(product);
+    setEditingProductIndex(index);
   };
 
   const handleSave = (updatedProduct: Product) => {
-    updateProduct(updatedProduct);
+    updatedProduct.price = `$${updatedProduct.price.replace('$', '')}`;
+    updatedProduct.value = `$${updatedProduct.value.replace('$', '')}`;
+    updateProduct(updatedProduct, editingProductIndex);
     setEditingProduct(null);
+    setEditingProductIndex(0);
   };
 
   return (
-    <Container>
+    <Container disableGutters sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
       <TopWidgets />
       <ProductTable
         isAdmin={true}

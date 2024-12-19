@@ -1,5 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Product } from '../types/Product';
+import { fetchInventory } from '../services/api';
+
+// New async thunk
+export const fetchProducts = createAsyncThunk(
+  'inventory/fetchProducts',
+  async () => {
+    const data = await fetchInventory();
+    return data;
+  }
+);
 
 interface InventoryState {
   products: Product[];
@@ -18,17 +28,17 @@ const inventorySlice = createSlice({
     setProducts: (state, action: PayloadAction<Product[]>) => {
       state.products = action.payload;
     },
-    updateProduct: (state, action: PayloadAction<Product>) => {
-      const index = state.products.findIndex(p => p.id === action.payload.id);
-      if (index !== -1) {
-        state.products[index] = action.payload;
+    updateProduct: (state, action: PayloadAction<{ product: Product; index: number }>) => {
+      const { product, index } = action.payload;
+      if (index >= 0 && index < state.products.length) {
+        state.products[index] = product;
       }
     },
     deleteProduct: (state, action: PayloadAction<number>) => {
-      state.products = state.products.filter(p => p.id !== action.payload);
+      state.products.splice(action.payload, 1);
     },
     toggleProductDisable: (state, action: PayloadAction<number>) => {
-      const product = state.products.find(p => p.id === action.payload);
+      const product = state.products[action.payload];
       if (product) {
         product.disabled = !product.disabled;
       }
@@ -36,6 +46,11 @@ const inventorySlice = createSlice({
     toggleAdminView: (state) => {
       state.isAdmin = !state.isAdmin;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
+      state.products = action.payload;
+    });
   },
 });
 

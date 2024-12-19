@@ -5,13 +5,13 @@ export const createAppTheme = (darkMode: boolean) =>
     palette: {
       mode: darkMode ? 'dark' : 'light',
       primary: {
-        main: '#4CAF50', // green for edit
+        main: '#cadf66',
       },
       secondary: {
-        main: '#FF69B4', // pink for visibility
+        main: '#FF69B4',
       },
       error: {
-        main: '#FF0000', // red for delete
+        main: '#FF0000',
       },
     },
   });

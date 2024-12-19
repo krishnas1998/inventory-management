@@ -9,14 +9,14 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  updateProduct: (product: Product) => {
-    dispatch(updateProduct(product));
+  updateProduct: (product: Product, index: number) => {
+    dispatch(updateProduct({ product, index }));
   },
-  deleteProduct: (id: number) => {
-    dispatch(deleteProduct(id));
+  deleteProduct: (index: number) => {
+    dispatch(deleteProduct(index));
   },
-  toggleProductDisable: (id: number) => {
-    dispatch(toggleProductDisable(id));
+  toggleProductDisable: (index: number) => {
+    dispatch(toggleProductDisable(index));
   },
 });
 

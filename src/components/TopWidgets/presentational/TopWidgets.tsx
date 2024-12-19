@@ -18,13 +18,19 @@ const TopWidgets: React.FC<TopWidgetsProps> = ({ totalProducts, totalStoreValue,
         { label: 'Out of Stock', value: outOfStock, icon: <RemoveShoppingCart /> },
         { label: 'Categories', value: categories, icon: <Category /> },
       ].map((widget, index) => (
-        <Grid size={3} key={index}>
-          <Paper sx={{ p: 1, paddingLeft: 3, paddingRight: 3, borderRadius: 2, backgroundColor: '#243325' }}>
+        <Grid size={{ xs: 6, sm: 6, md: 3 }} key={index}>
+          <Paper sx={{ 
+            p: 1, 
+            paddingLeft: { xs: 2, sm: 3 }, 
+            paddingRight: { xs: 2, sm: 3 }, 
+            borderRadius: 2, 
+            backgroundColor: '#243325' 
+          }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               {widget.icon}
               <Box sx={{ textAlign: 'left', marginLeft: 2 }}>
                 <Typography variant="subtitle2">{widget.label}</Typography>
-                <Typography variant="h4">{widget.value}</Typography>
+                <Typography variant="h4" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>{widget.value}</Typography>
               </Box>
             </Box>
           </Paper>

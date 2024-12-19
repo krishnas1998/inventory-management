@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppBar, Toolbar, Typography, Switch, FormControlLabel, CssBaseline, ThemeProvider } from '@mui/material';
+import { AppBar, Toolbar, Switch, FormControlLabel, CssBaseline, ThemeProvider } from '@mui/material';
 import AdminView from './components/AdminView/container/AdminView';
 import UserView from './components/UserView';
 import { fetchInventory } from './services/api';
 import { RootState } from './redux/store';
 import { setProducts, toggleAdminView } from './redux/inventorySlice';
-import { toggleDarkMode } from './redux/themeSlice';
+// import { toggleDarkMode } from './redux/themeSlice';
 import './App.css';
 import { createAppTheme } from './theme';
 
@@ -30,7 +30,7 @@ const App: React.FC = () => {
   }, [dispatch]);
 
   const handleAdminToggle = () => dispatch(toggleAdminView());
-  const handleDarkModeToggle = () => dispatch(toggleDarkMode());
+  // const handleDarkModeToggle = () => dispatch(toggleDarkMode());
 
   return (
     <ThemeProvider theme={theme}>
